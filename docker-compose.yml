@@ -1,0 +1,51 @@
+version: '3.3'
+
+services:
+  mysql-workbench:
+    image: ghcr.io/linuxserver/mysql-workbench
+    container_name: mysql-workbench
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - /path/to/config:/config
+    networks:
+      - bd-network
+    ports:
+      - 3000:3000
+    cap_add:
+      - IPC_LOCK
+    restart: unless-stopped
+
+  some-mysql:
+    image: mysql:5.7
+    volumes:
+      - .docker/setup.sql:/docker-entrypoint-initdb.d/setup.sql
+      - db_data:/var/lib/mysql
+    networks:
+      - bd-network
+      - api-network
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: daniel
+      MYSQL_USER: daniel
+      MYSQL_PASSWORD: daniel
+    ports:
+      - "3306:3306"
+
+  web:
+    build: .
+    depends_on:
+      - some-mysql
+    networks:
+      - api-network
+    ports:
+      - "8080:80"
+  
+volumes:
+  db_data: {}
+
+networks:
+  api-network:
+  bd-network:
