@@ -12,5 +12,4 @@ Radu Daniel 341C3
 	
 	Pentru rularea aplicatiei este necesara doar rularea comenzii : docker-compose up --build
 
-	Formatul de timestamp stocat in baza de date este:
-AAAA-LL-ZZ hh:mm:ss, dar comenzile care includ from_date si until_date de tipul GET /api/temperatures asteapta o data in format AAAA-LL-ZZ, cum a fost mentionat pe forum.
+	Formatul de timestamp stocat in baza de date este: AAAA-LL-ZZ hh:mm:ss, dar comenzile care includ from_date si until_date de tipul GET /api/temperatures asteapta o data in format AAAA-LL-ZZ, cum a fost mentionat pe forum.
